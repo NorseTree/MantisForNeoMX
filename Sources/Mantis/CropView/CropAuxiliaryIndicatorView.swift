@@ -154,8 +154,22 @@ final class CropAuxiliaryIndicatorView: UIView, CropAuxiliaryIndicatorViewProtoc
                 let horizontalY = CGFloat(index + 1) * frame.height / CGFloat(indicatorLineNumber + 1)
                 indicatorLinePath.move(to: CGPoint(x: 0, y: horizontalY))
                 indicatorLinePath.addLine(to: CGPoint(x: frame.width, y: horizontalY))
+            
+                indicatorLinePath.stroke()
+            }
+            let indicatorLineNumberX = indicatorLineNumber+1
+            
+            for index in 0..<(indicatorLineNumberX) {
+                if gridLineNumberType == .rotate && (index + 1) % 3 != 0 {
+                    gridSecondaryColor.setStroke()
+                } else {
+                    gridMainColor.setStroke()
+                }
                 
-                let horizontalX = CGFloat(index + 1) * frame.width / CGFloat(indicatorLineNumber + 1)
+                let indicatorLinePath = UIBezierPath()
+                indicatorLinePath.lineWidth = 1
+               
+                let horizontalX = CGFloat(index + 1) * frame.width / CGFloat(indicatorLineNumberX + 1)
                 indicatorLinePath.move(to: CGPoint(x: horizontalX, y: 0))
                 indicatorLinePath.addLine(to: CGPoint(x: horizontalX, y: frame.height))
                 
