@@ -36,6 +36,7 @@ public struct CropAuxiliaryIndicatorConfig {
         This property is only used when rotating the image
      */
     public var gridSecondaryColor = UIColor.lightGray
+    public var gridHightlightColor = UIColor.red
     
     public init() {}
 }
