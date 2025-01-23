@@ -23,6 +23,7 @@ final class CropAuxiliaryIndicatorView: UIView, CropAuxiliaryIndicatorViewProtoc
     private var tappedEdge: CropViewAuxiliaryIndicatorHandleType = .none
     private var gridMainColor = UIColor.white
     private var gridSecondaryColor = UIColor.lightGray
+    private var gridHightlightColor = UIColor.red
     private var disableCropBoxDeformation = false
     private var style: CropAuxiliaryIndicatorStyleType = .normal
     
@@ -140,10 +141,13 @@ final class CropAuxiliaryIndicatorView: UIView, CropAuxiliaryIndicatorViewProtoc
         
         if !gridHidden {
             let indicatorLineNumber = gridLineNumberType.getIndicatorLineNumber()
+            let indicatorLineNumberY = indicatorLineNumber+1
             
-            for index in 0..<indicatorLineNumber {
+            for index in 0..<indicatorLineNumberY {
                 if gridLineNumberType == .rotate && (index + 1) % 3 != 0 {
                     gridSecondaryColor.setStroke()
+                }else if(index == 2 && index == 3) || (gridLineNumberType == .rotate && index == 2 && index == 4){
+                    gridHightlightColor.setStroke()
                 } else {
                     gridMainColor.setStroke()
                 }
@@ -151,25 +155,25 @@ final class CropAuxiliaryIndicatorView: UIView, CropAuxiliaryIndicatorViewProtoc
                 let indicatorLinePath = UIBezierPath()
                 indicatorLinePath.lineWidth = 1
                 
-                let horizontalY = CGFloat(index + 1) * frame.height / CGFloat(indicatorLineNumber + 1)
+                let horizontalY = CGFloat(index + 1) * frame.height / CGFloat(indicatorLineNumberY + 1)
                 indicatorLinePath.move(to: CGPoint(x: 0, y: horizontalY))
                 indicatorLinePath.addLine(to: CGPoint(x: frame.width, y: horizontalY))
             
                 indicatorLinePath.stroke()
             }
-            let indicatorLineNumberX = indicatorLineNumber+1
-            
-            for index in 0..<(indicatorLineNumberX) {
+          
+            for index in 0..<(indicatorLineNumber) {
                 if gridLineNumberType == .rotate && (index + 1) % 3 != 0 {
                     gridSecondaryColor.setStroke()
-                } else {
+               
+                }else {
                     gridMainColor.setStroke()
                 }
                 
                 let indicatorLinePath = UIBezierPath()
                 indicatorLinePath.lineWidth = 1
                
-                let horizontalX = CGFloat(index + 1) * frame.width / CGFloat(indicatorLineNumberX + 1)
+                let horizontalX = CGFloat(index + 1) * frame.width / CGFloat(indicatorLineNumber + 1)
                 indicatorLinePath.move(to: CGPoint(x: horizontalX, y: 0))
                 indicatorLinePath.addLine(to: CGPoint(x: horizontalX, y: frame.height))
                 
